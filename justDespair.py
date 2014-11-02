@@ -154,7 +154,7 @@ def main():
             order_data[year]['totals'] = {}
             for order in order_data[year]['orders']:
                 order_data[year]['totals'][order['location']] = order_data[year]['totals'].get(order['location'], 0) + order['amount']
-                order_totals['totals'][order['location']] = order_totals.get(order['location'], 0) + order['amount']
+                order_totals['totals'][order['location']] = order_totals['totals'].get(order['location'], 0) + order['amount']
 
         for year in order_data:
             print year
