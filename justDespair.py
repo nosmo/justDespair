@@ -136,7 +136,7 @@ def main():
     order_data = just_eat.getOrderData()
     total_cost = []
     if args.json:
-        json.dumps(order_data)
+        print(json.dumps(order_data))
     else:
         for year, year_details in order_data.iteritems():
             print("""%d
