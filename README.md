@@ -7,6 +7,13 @@ information from just-eat.ie (and hopefully other regions using the
 just-eat platform), total the amount spent over the years and make you
 feel very bad about your life choices.
 
+What it tells you
+-------
+
+* How much you spent per year
+* Which restaurant you frequented the most per year
+* A total of all previous purchases on just-eat, ever.
+
 How to use
 -------
 
