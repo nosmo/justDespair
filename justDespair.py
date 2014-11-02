@@ -7,7 +7,7 @@ regret. There is no API limit for your own sense of regret.
 
 """
 
-__author__="nosmo@nosmo.me"
+__author__ = "nosmo@nosmo.me"
 
 import argparse
 import pprint
@@ -18,11 +18,13 @@ import datetime
 import BeautifulSoup
 import requests
 
-LOGIN_URL="https://www.just-eat.%s/member/login"
-PREVORDERS_URL="https://www.just-eat.%s/member/prevorders"
+LOGIN_URL = "https://www.just-eat.%s/member/login"
+PREVORDERS_URL = "https://www.just-eat.%s/member/prevorders"
+
 
 class LoginException(Exception):
     pass
+
 
 class JustEat(object):
 
@@ -61,23 +63,25 @@ class JustEat(object):
         content_reader = BeautifulSoup.BeautifulSoup(page_content)
         purchases = []
 
-        #this is some vile html: no ids, very little class except for incorrect ones
-        purchase_data = content_reader.findAll("table", {"class":"signUp"})
+        # this is some vile html: no ids, very little class except for
+        # incorrect ones
+        purchase_data = content_reader.findAll("table", {"class": "signUp"})
         if len(purchase_data) > 1:
-            raise Exception("JustEat's HTML looks worse than usual - something is broken :(")
+            raise Exception(("JustEat's HTML looks worse than usual - "
+                             "something is broken :("))
         purchase_data = purchase_data[0]
 
-        #TODO use per-order checks with this URL - will be able to get
-        #more interesting details like average time of day (almost
-        #certianly time of morning) of orders
-        #https://www.just-eat.ie/pages/ViewOrder.aspx?ordertable=order&userid=UID&orderid=ORDERID&ratingcode=somestuffidunno
+        # TODO use per-order checks with this URL - will be able to get
+        # more interesting details like average time of day (almost
+        # certianly time of morning) of orders
+        # https://www.just-eat.ie/pages/ViewOrder.aspx?ordertable=order&userid=UID&orderid=ORDERID&ratingcode=somestuffidunno
         for purchase in purchase_data.findAll("tr"):
             left_td_find = purchase.findAll("td", {"align": "left"})
             if not left_td_find or len(left_td_find) != 2:
-                #This line isn't a purchase, skip it
+                # This line isn't a purchase, skip it
                 continue
 
-            #TODO make a datetime
+            # TODO make a datetime
             purchase_date, purchase_location = [ i.string for i in left_td_find ]
             purchase_amount = purchase.findAll("div", {"style": "float: right;"})
             if purchase_amount:
@@ -102,9 +106,11 @@ class JustEat(object):
         for year in range(2008, endyear+1):
             page_content = self.getOrderPage(year)
             order_dict[year]["orders"] = self.parseOrderPage(page_content)
-            order_dict[year]["total_cost"] = sum([ i["amount"] for i in order_dict[year]["orders"]])
+            order_dict[year]["total_cost"] = sum([i["amount"] for i in order_dict[year]["orders"]])
             if order_dict[year]["orders"]:
-                order_dict[year]["most_purchased"] = collections.Counter([ i["location"] for i in order_dict[year]["orders"]]).most_common(1)[0][0]
+                order_dict[year]["most_purchased"] = collections.Counter(
+                    [i["location"] for i in order_dict[year]["orders"]]
+                ).most_common(1)[0][0]
             else:
                 order_dict[year]["most_purchased"] = None
 
@@ -114,10 +120,11 @@ class JustEat(object):
         # Get the HTML content of an order page for a given year
         year_placeholder = self.generateYearPlaceholder(year)
         order_attempt = self._session.post(PREVORDERS_URL % self.region,
-                                           data = { "__EVENTTARGET": year_placeholder})
+                                           data={"__EVENTTARGET": year_placeholder})
         if not order_attempt.ok:
             raise Exception("Couldn't get order page: %s" % order_attempt.content)
         return order_attempt.content
+
 
 def main():
     parser = argparse.ArgumentParser(description='Find out how much more ashamed you should feel about ordering food online')
@@ -143,8 +150,8 @@ def main():
             \tMost frequented: %s
             \tTotal cost: %0.2f""" % (year,
                                       year_details["most_purchased"],
-                                      year_details["total_cost"] if year_details["total_cost"] \
-                                    else 0.0))
+                                      year_details["total_cost"] if year_details["total_cost"]
+                                      else 0.0))
             total_cost.append(year_details["total_cost"])
 
         print("\nTotal cost: %0.2f" % sum(total_cost))
