@@ -10,10 +10,10 @@ regret. There is no API limit for your own sense of regret.
 __author__ = "nosmo@nosmo.me"
 
 import argparse
-import pprint
 import json
 import collections
 import datetime
+from operator import itemgetter
 
 import BeautifulSoup
 import requests
@@ -125,6 +125,10 @@ class JustEat(object):
             raise Exception("Couldn't get order page: %s" % order_attempt.content)
         return order_attempt.content
 
+def print_totals(order_dict):
+    for k, v in sorted(order_dict['totals'].items(), key=itemgetter(1), reverse=True):
+        print("%s: %0.2f" % (k, v))
+    print("\n")
 
 def main():
     parser = argparse.ArgumentParser(description='Find out how much more ashamed you should feel about ordering food online')
@@ -136,11 +140,28 @@ def main():
                         help="Dump only order output as JSON")
     parser.add_argument("--region", "-R", dest="region", action="store", default="ie",
                         help="Region from which to fetch order information (untested)")
+    parser.add_argument("--totals", "-t", dest="totals", action="store_true",
+                        help="Show totals for each location")
     args = parser.parse_args()
 
     just_eat = JustEat(args.email, args.password, args.region)
 
     order_data = just_eat.getOrderData()
+
+    if args.totals:
+        order_totals = {'totals':{}}
+        for year in order_data:
+            order_data[year]['totals'] = {}
+            for order in order_data[year]['orders']:
+                order_data[year]['totals'][order['location']] = order_data[year]['totals'].get(order['location'], 0) + order['amount']
+                order_totals['totals'][order['location']] = order_totals['totals'].get(order['location'], 0) + order['amount']
+
+        for year in order_data:
+            print year
+            print_totals(order_data[year])
+        print("Totals: ")
+        print_totals(order_totals)
+
     total_cost = []
     if args.json:
         print(json.dumps(order_data))
