@@ -69,6 +69,8 @@ class JustEat(object):
         if len(purchase_data) > 1:
             raise Exception(("JustEat's HTML looks worse than usual - "
                              "something is broken :("))
+        elif len(purchase_data) == 0:
+            raise LoginException
         purchase_data = purchase_data[0]
 
         # TODO use per-order checks with this URL - will be able to get
