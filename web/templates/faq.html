@@ -1,0 +1,30 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/utils.html" as util %}
+
+{% block title %}JustDespair: FAQ{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>JustDespair</h1>
+  <h2>FAQ</h2>
+  <ul>
+    <li><strong>Are JustEat gonna sue you?</strong></li>
+    <li>Let's hope not.</li>
+    <li><strong>Why doesn't this site work for non-Irish versions of JustEat</strong></li>
+    <li>Because no one has tested the code! I'm looking for volunteers to try out the command-line version available on <a href="https://github.com/nosmo/justDespair">GitHub</a>.</li>
+    <li><strong>Ugh, Bootstrap, seriously?</strong></li>
+    <li>Of all of the things I could have done, it was the least evil. Submit a PR if it's so awful. You jerk</li>
+    <li><strong>Who wrote this?</strong></li>
+    <li><a href="https://twitter.com/nosmo">@nosmo</a>, also known as Hugh</li>
+  </ul>
+</div>
+
+{% include "footer.html" %}
+{% endblock %}
+
+{% block head %}
+{{super()}}
+{{fixes.ie8()}}
+{% endblock %}
