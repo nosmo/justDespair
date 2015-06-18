@@ -16,8 +16,12 @@
     <li>Because no one has tested the code! I'm looking for volunteers to try out the command-line version available on <a href="https://github.com/nosmo/justDespair">GitHub</a>.</li>
     <li><strong>Ugh, Bootstrap, seriously?</strong></li>
     <li>Of all of the things I could have done, it was the least evil. Submit a PR if it's so awful. You jerk</li>
+    <li><strong>What security concerns exist as regards this app?</strong></li>
+    <li>When you log in, a JustDespair object is created in memory, containing your username and password. After you retrieve your results, this information is garbage collected and so is inaccessible to most attackers. The same goes for the order history information. However, guarantees cannot be made about the security of login information and it is submitted at your own risk - as noted on the front page. The sum total of your yearly totals is computed and stored in a database if and only if it is the highest seen. All accesses to JustEat are made over HTTPS and the webserver serving the content scores an A on the <a href="https://www.ssllabs.com/ssltest/analyze.html?d=justdespair.com">Qualys SSL tests</a>.</li>
     <li><strong>Who wrote this?</strong></li>
     <li><a href="https://twitter.com/nosmo">@nosmo</a>, also known as Hugh</li>
+    <li><strong>Do you have anything to do with JustEat?</strong></li>
+    <li>Absolutely not. I sincerely doubt they'd approve.</li>
   </ul>
 </div>
 
