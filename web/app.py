@@ -15,6 +15,7 @@ import os
 REGION="ie"
 CURRENCY=u"€"
 TOTAL_PATH="/var/tmp/justdespair_total.txt"
+# CHANGEME obviously.
 SECRET_KEY="ir8joo3ieN1ahbaeNg1oor1Chawoo4"
 
 REDIS_KEY = "justdespair_total"
