@@ -8,7 +8,7 @@ from flask_wtf import Form
 from wtforms.validators import Required, Email
 from redis import Redis
 
-from justDespair import JustEat
+from justDespair import JustEat, LoginException
 
 import os
 
@@ -57,10 +57,13 @@ def create_app():
     @app.route("/", methods=("GET", "POST"))
     def render_page():
         if request.method == 'POST':
-            just_eat = JustEat(request.form["username"],
-                               request.form["password"],
-                               REGION)
-            order_data = just_eat.getOrderData()
+            try:
+                just_eat = JustEat(request.form["username"],
+                                   request.form["password"],
+                                   REGION)
+                order_data = just_eat.getOrderData()
+            except Exception as e:
+                return render_template("error.html")
 
             total_data = []
             for year, year_details in order_data.iteritems():

@@ -1,0 +1,20 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/utils.html" as util %}
+
+{% block title %}JustDespair: Results{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>JustDespair: Error</h1>
+  <p>There was a failure to log you into JustEat :( Either your username or password is wrong, or JustEat have finally blocked the site</p>
+</div>
+
+{% include "footer.html" %}
+{% endblock %}
+
+{% block head %}
+{{super()}}
+{{fixes.ie8()}}
+{% endblock %}
