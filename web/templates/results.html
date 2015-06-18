@@ -1,0 +1,46 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/utils.html" as util %}
+
+{% block title %}JustDespair: Results{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>JustDespair: Results</h1>
+
+  {% if total_cost > record_cost %}
+  <h3>Your JustEat total of {{currency}}{{total_cost}} has made the new record! Oh dear!</h3>
+  {% elif total_cost == record_cost %}
+  <p>Your JustEat total of {{currency}}{{total_cost}} is the current record! That's not a good thing!</p>
+  {% else %}
+  <p>Your JustEat total of {{currency}}{{total_cost}} was not enough to beat the current record of {{currency}}{{record_cost}}. Phew.</p>
+  {% endif %}
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Most frequented</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for year, year_details in order_data.iteritems() %}
+      <tr>
+        <td>{{year}}</td>
+        <td>{{ year_details["most_purchased"]}}</td>
+        <td>{{currency}}{{ year_details["total_cost"] if year_details["total_cost"] else 0.0 }}</td>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+
+{% include "footer.html" %}
+{% endblock %}
+
+{% block head %}
+{{super()}}
+{{fixes.ie8()}}
+{% endblock %}

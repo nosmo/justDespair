@@ -1,0 +1,30 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/utils.html" as util %}
+
+{% block title %}JustDespair: Login{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>JustDespair</h1>
+  <p>JustDespair is a way to calculate your total JustEat purchase history. Every order, since you started using the service. Yes, you want to know.</p>
+  <p>JustDespair will also (once you have submitted your own entry) show you the highest entry total seen across all logins.</p>
+
+  <h2>What you should know before using using this tool</h2>
+  <ul>
+    <li>Your JustEat login details are required to collect this information. These details are not stored by this app, but you submit them at your own risk.</li>
+    <li>By using this app, if your total sum is the highest historical value seen, you consent to having this information stored - <strong>completely anonymously</strong>. You can see this for yourself in <a href="https://github.com/nosmo/justDespair">the source code.</a></li>
+  </ul>
+  {{ wtf.quick_form(form, button_map={'submit_button': 'primary'}) }}
+
+</div>
+
+{% include "footer.html" %}
+
+{% endblock %}
+
+{% block head %}
+{{super()}}
+{{fixes.ie8()}}
+{% endblock %}
