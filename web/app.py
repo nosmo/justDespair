@@ -3,7 +3,7 @@
 
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
-from wtforms import TextField, HiddenField, SubmitField
+from wtforms import TextField, HiddenField, SubmitField, PasswordField
 from flask_wtf import Form
 from wtforms.validators import Required, Email
 from redis import Redis
@@ -23,7 +23,7 @@ class LoginForm(Form):
     username = TextField('Username', description='The JustEat username.',
                          validators=[Required("Username is required!"),
                                      Email("JustEat usernames need to be email addresses!")])
-    password = TextField('Password', description='The JustEat password.',
+    password = PasswordField('Password', description='The JustEat password.',
                          validators=[Required("Password is required!")])
     submit_button = SubmitField('Submit Form')
 
