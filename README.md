@@ -7,6 +7,8 @@ information from just-eat.ie (and hopefully other regions using the
 just-eat platform), total the amount spent over the years and make you
 feel very bad about your life choices.
 
+JustDespair's functionality is now available online with a score tracking component [here](https://justdespair.com/).
+
 What it tells you
 -------
 
