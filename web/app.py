@@ -17,6 +17,8 @@ CURRENCY=u"€"
 TOTAL_PATH="/var/tmp/justdespair_total.txt"
 # CHANGEME obviously.
 SECRET_KEY="ir8joo3ieN1ahbaeNg1oor1Chawoo4"
+# We're closed - justeat have shut us down 😿
+CLOSED=True
 
 REDIS_KEY = "justdespair_total"
 
@@ -53,10 +55,15 @@ def create_app():
 
     @app.route("/faq", methods=("GET",))
     def faq():
-        return render_template("faq.html")
+        return render_template("faq.html",
+                               currency=CURRENCY)
 
     @app.route("/", methods=("GET", "POST"))
     def render_page():
+
+        if CLOSED:
+            return render_template("closed.html")
+
         if request.method == 'POST':
             try:
                 just_eat = JustEat(request.form["username"],

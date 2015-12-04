@@ -1,0 +1,23 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/utils.html" as util %}
+
+{% block title %}JustDespair: Closed{% endblock %}
+
+{% block content %}
+{% include "footer.html" %}
+
+<div class="container">
+  <h1>JustDespair</h1>
+  <p>JustDespair was a way to calculate your total JustEat purchase history. Every order, since you started using the service. JustEat locked down user logins to use reCaptcha some time in early December 2015 and so JustDespair stopped working.</p>
+  <p>The source for JustDespair is still available on <a href="https://github.com/nosmo/justDespair">Github</a>.</p>
+  <p>The final high score was {{ currency }}9165.39</p>
+</div>
+
+{% endblock %}
+
+{% block head %}
+{{super()}}
+{{fixes.ie8()}}
+{% endblock %}
