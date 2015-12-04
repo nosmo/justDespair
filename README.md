@@ -1,6 +1,13 @@
 justDespair
 =======
 
+⚠️⚠️⚠️⚠️ ATTENTION ⚠️⚠️⚠️⚠️
+-------
+**JustEat have updated their login forms to require a captcha. This basically means that JustDespair is done for and that both the web interface and the command-line tool no longer work. It's a shame, but at least it stops people from doing dumb stuff like this tool.**
+
+For posterity, the final JustDespair web high score was €9165.39.
+
+
 justDespair is an innovation in guilt-generation
 technologies. justDespair will collect all historical order
 information from just-eat.ie (and hopefully other regions using the
